@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary SEO -->
+    <title>Noctune - Blend the Noise</title>
+    <meta name="description" content="Noctune is a calm ambient sound mixer to help you focus, relax, and sleep by blending natural sounds like rain, wind, forest, night, and fire.">
+    <meta name="keywords" content="ambient sounds, sound mixer, focus sounds, sleep sounds, rain sounds, white noise, relaxation app">
+    <meta name="author" content="Webnate">
+
+    <!-- Open Graph (no image) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Noctune - Blend the Noise">
+    <meta property="og:description" content="Blend calming ambient sounds to focus, relax, or sleep with Noctune. A clean, distraction-free sound experience.">
+    <meta property="og:site_name" content="Noctune">
+
+    <!-- Twitter / X (no image) -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Noctune - Blend the Noise">
+    <meta name="twitter:description" content="A minimal ambient sound mixer for focus, relaxation, and sleep.">
+
+    <!-- Search engine behavior -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+
+    <!-- UI / Theme -->
+    <meta name="theme-color" content="#05070a">
+    <meta name="color-scheme" content="dark">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>NOCTUNE</h1>
+        <p class="subtitle">Blend the noise. Find your calm.</p>
+    </header>
+
+    <main id="sound-grid" class="grid-container">
+    </main>
+
+    <footer class="controls">
+        <div class="preset-group">
+            <button onclick="applyPreset('focus')">Focus</button>
+            <button onclick="applyPreset('sleep')">Sleep</button>
+            <button onclick="applyPreset('rainyNight')">Thunder Storm</button>
+            <button onclick="applyPreset('forestCalm')">Forest Calm</button>
+            <button onclick="applyPreset('meditation')">Meditation</button>
+        </div>
+
+        <div class="global-actions">
+            <button id="master-play-pause" class="primary-btn" onclick="toggleAll()">Pause All</button>
+            <button class="secondary-btn" onclick="resetMix()">Reset Mix</button>
+        </div>
+
+        <p class="footer-credit">
+            For more projects visit <a href="https://webnate.vercel.app" target="_blank">webnate.vercel.app</a>
+        </p>
+
+    </footer>
+
+    <div id="audio-container" style="display: none;">
+        <audio id="audio-rain" loop src="sounds/rain.mp3"></audio>
+        <audio id="audio-thunder" loop src="sounds/thunder.mp3"></audio>
+        <audio id="audio-wind" loop src="sounds/wind.mp3"></audio>
+        <audio id="audio-forest" loop src="sounds/forest.mp3"></audio>
+        <audio id="audio-night" loop src="sounds/night.mp3"></audio>
+        <audio id="audio-river" loop src="sounds/river.mp3"></audio>
+        <audio id="audio-train" loop src="sounds/train.mp3"></audio>
+        <audio id="audio-fire" loop src="sounds/campfire.mp3"></audio>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

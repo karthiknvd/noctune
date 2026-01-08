@@ -1,0 +1,319 @@
+:root {
+    --bg-color: #05070a;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --accent: #4fd1c5;
+    --text-main: #e2e8f0;
+    --text-dim: #94a3b8;
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    background: radial-gradient(circle at center, #0f172a 0%, #05070a 100%);
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    animation: fadeIn 2s ease;
+}
+
+h1 {
+    font-size: 2.5rem;
+    letter-spacing: 0.5rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--text-dim);
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+}
+
+/* Grid Layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    max-width: 1000px;
+    width: 90%;
+    padding-bottom: 150px;
+}
+
+@media (max-width: 900px) { .grid-container { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .grid-container { grid-template-columns: 1fr; } }
+
+/* Sound Cards */
+.sound-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.sound-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.sound-card.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(79, 209, 197, 0.1);
+}
+
+.icon { font-size: 2rem; }
+.name { font-weight: 400; color: var(--text-dim); font-size: 0.9rem; }
+
+/* Sliders */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--text-main);
+    cursor: pointer;
+    margin-top: -6px;
+    transition: var(--transition);
+}
+
+.sound-card.active input[type=range]::-webkit-slider-thumb {
+    background: var(--accent);
+}
+
+/* Controls Bar */
+footer.controls {
+    position: absolute;
+    bottom: -15px;
+    width: 100%;
+    padding: 30px;
+    background: linear-gradient(transparent, var(--bg-color));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.preset-group, .global-actions {
+    display: flex;
+    gap: 15px;
+}
+
+button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-dim);
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+    transform: scale(1.05);
+}
+
+button:active { transform: scale(0.95); }
+
+.primary-btn {
+    background: var(--text-main);
+    color: var(--bg-color);
+    border: none;
+    font-weight: 600;
+}
+
+.primary-btn:hover {
+    background: #f8fafc;
+    color: var(--bg-color);
+    box-shadow: 0 5px 20px rgba(226, 232, 240, 0.25);
+    transform: scale(1.05);
+}
+
+.primary-btn:hover:active {
+    transform: scale(0.95);
+}
+
+.footer-credit {
+    margin-top: auto;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    opacity: 0.6;
+}
+
+.footer-credit a {
+    color: var(--text-dim);
+    text-decoration: none;
+}
+
+.footer-credit a:hover {
+    text-decoration: underline;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* =========================
+   Mobile Improvements
+   ========================= */
+
+/* Better tap experience */
+@media (max-width: 768px) {
+
+    header {
+        padding: 36px 16px 26px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+        letter-spacing: 0.22rem;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+    }
+
+    /* Grid spacing */
+    .grid-container {
+        gap: 16px;
+        padding-bottom: 60px; /* no fixed footer now */
+    }
+
+    /* Sound cards */
+    .sound-card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    .icon {
+        font-size: 1.7rem;
+    }
+
+    .name {
+        font-size: 0.8rem;
+    }
+
+    /* Sliders – better touch */
+    input[type=range] {
+        height: 26px;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        width: 18px;
+        height: 18px;
+        margin-top: -7px;
+    }
+
+    /* Footer controls – normal flow */
+    footer.controls {
+        position: relative;
+        width: 100%;
+        padding: 26px 16px 30px;
+        gap: 14px;
+
+        backdrop-filter: blur(12px);
+        background: linear-gradient(
+            to top,
+            rgba(5, 7, 10, 0.9),
+            rgba(5, 7, 10, 0.6),
+            transparent
+        );
+    }
+
+    /* Presets */
+    .preset-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 100%;
+    }
+
+    /* Pause / Reset row */
+    .global-actions {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .global-actions button {
+        flex: 1;
+    }
+
+    /* Buttons */
+    button {
+        padding: 9px 0;
+        font-size: 0.72rem;
+    }
+
+    .primary-btn {
+        padding: 11px 0;
+        font-size: 0.75rem;
+    }
+
+    /* Footer credit */
+    .footer-credit {
+        margin-top: 10px;
+        font-size: 0.6rem;
+        text-align: center;
+        opacity: 0.4;
+    }
+}
+
+
+/* Extra small phones */
+@media (max-width: 420px) {
+
+    h1 {
+        font-size: 1.55rem;
+        letter-spacing: 0.18rem;
+    }
+
+    .sound-card {
+        padding: 18px;
+    }
+
+    .preset-group {
+        grid-template-columns: 1fr;
+    }
+}
