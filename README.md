@@ -87,7 +87,7 @@ Every bit of support is appreciated 💙
 
 ## 🌐 Live Demo
 
-👉 https://webnate.vercel.app *(if deployed)*
+👉 https://noctune-blend.vercel.app
 
 ---
 
