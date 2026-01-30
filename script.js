@@ -3,10 +3,10 @@
 ====================================== */
 const sounds = [
     { id: 'rain', name: 'Rain', icon: '🌧️', color: '#4fd1c5', particleType: 'rain' },
-    { id: 'thunder', name: 'Thunder', icon: '⛈️', color: '#94a3b8', particleType: 'none' },
+    { id: 'thunder', name: 'Thunder', icon: '⛈️', color: '#476ba1', particleType: 'none' },
     { id: 'wind', name: 'Wind', icon: '🌬️', color: '#a5b4fc', particleType: 'wind' },
     { id: 'forest', name: 'Forest', icon: '🌲', color: '#10b981', particleType: 'leaf' },
-    { id: 'night', name: 'Night', icon: '🌙', color: '#a5b8d8', particleType: 'star' },
+    { id: 'night', name: 'Night', icon: '🌙', color: '#373737', particleType: 'star' },
     { id: 'river', name: 'River', icon: '🌊', color: '#0ea5e9', particleType: 'bubble' },
     { id: 'train', name: 'Train', icon: '🚆', color: '#64748b', particleType: 'smoke' },
     { id: 'fire', name: 'Campfire', icon: '🔥', color: '#f97316', particleType: 'ember' }
@@ -126,12 +126,24 @@ class Particle {
         this.type = type;
         this.color = color;
         this.fadingOut = false;
+        this.isInitialSpawn = true; // Track if this is the first spawn
         this.reset();
     }
 
     reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        // Train particles: spread across screen on initial spawn, then from right edge
+        if (this.type === 'smoke') {
+            if (this.isInitialSpawn) {
+                this.x = Math.random() * canvas.width; // Spread across screen initially
+                this.isInitialSpawn = false;
+            } else {
+                this.x = canvas.width + 10; // Spawn from right edge for continuous flow
+            }
+            this.y = Math.random() * canvas.height;
+        } else {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+        }
         this.size = this.getSize();
         this.speedX = this.getSpeedX();
         this.speedY = this.getSpeedY();
@@ -148,7 +160,7 @@ class Particle {
             case 'leaf': return Math.random() * 3 + 2;
             case 'star': return Math.random() * 2 + 1;
             case 'bubble': return Math.random() * 3 + 1.5;
-            case 'smoke': return Math.random() * 4 + 2;
+            case 'smoke': return Math.random() * 2.5 + 1; // Thinner particles for train
             case 'ember': return Math.random() * 3 + 1.5;
             default: return 2;
         }
@@ -159,7 +171,7 @@ class Particle {
             case 'rain': return Math.random() * 0.5 - 0.25;
             case 'wind': return Math.random() * 2 + 1;
             case 'leaf': return Math.random() * 1 - 0.5;
-            case 'smoke': return Math.random() * 0.4 - 0.2;
+            case 'smoke': return -(Math.random() * 4 + 5); // Fast left movement for train traveling effect
             case 'ember': return Math.random() * 0.3 - 0.15;
             default: return Math.random() * 0.5 - 0.25;
         }
@@ -173,7 +185,7 @@ class Particle {
             case 'leaf': return Math.random() * 1 + 0.5;
             case 'star': return Math.random() * 0.2 - 0.1;
             case 'bubble': return -Math.random() * 1.5 - 0.5;
-            case 'smoke': return -Math.random() * 1 - 0.5;
+            case 'smoke': return Math.random() * 0.6 - 0.3; // Slight vertical variation for train
             case 'ember': return -Math.random() * 2 - 1;
             default: return Math.random() * 1;
         }
@@ -242,10 +254,17 @@ class Particle {
                 break;
 
             case 'wind':
-            case 'smoke':
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                break;
+
+            case 'smoke':
+                // Draw elongated particles for train motion blur effect
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.ellipse(this.x, this.y, this.size * 3, this.size, 0, 0, Math.PI * 2);
                 ctx.fill();
                 break;
 
